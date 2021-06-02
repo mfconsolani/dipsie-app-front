@@ -1,9 +1,23 @@
-import Input from './Components/Input.component';
+import Input from './Components/Input/Input.component';
+// import { useState } from 'react'
+import Switches from './Components/Switch/switch.component';
+
+
 
 function App() {
   return (
     <div className="App">
-      <Input name="Mauro" value="El jugador N° 10"/>
+      <form>
+      <Input value="Candidate ID"/>
+      <Input value="Full Name"/>
+      <Switches
+        name="true"
+        inputProps={{ 'aria-label': 'secondary checkbox' }}
+        color="primary"
+      />
+      <Input value="Available Now"/>
+      <Input value="Main Skills"/>
+      </form>
     </div>
   );
 }
