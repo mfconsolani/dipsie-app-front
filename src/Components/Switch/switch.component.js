@@ -2,6 +2,7 @@ import Switch from '@material-ui/core/Switch';
 import { useState } from 'react';
 
 export default function Switches(props) {
+    
     const [state, setState] = useState({
       checkedA: false
     });

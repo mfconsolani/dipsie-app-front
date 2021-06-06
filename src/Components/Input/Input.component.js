@@ -1,16 +1,19 @@
 import { TextField } from '@material-ui/core';
 import './input.component.css'
-
+import Box from '@material-ui/core/Box';
 
 const Input = (props) => {
+
     return (
         <div>
-            <TextField required
-                id="outlined-required"
-                label={props.value}
-                defaultValue=""
-                variant="outlined" 
-            />
+            <Box m={2}>
+                <TextField required
+                    id="outlined-required"
+                    label={props.value}
+                    defaultValue=""
+                    variant="outlined"
+                />
+            </Box>
         </div>
     )
 }

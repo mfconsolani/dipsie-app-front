@@ -14,4 +14,10 @@ code {
 
 form {
   display: flex;
+  flex-direction: column;
+  width: 600px
+}
+
+label, input, button {
+  margin: 0.5em;
 }
