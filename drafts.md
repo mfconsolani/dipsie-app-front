@@ -1,4 +1,4 @@
-simport Input from './Components/Input/Input.component';
+import Input from './Components/Input/Input.component';
 // import Switches from './Components/Switch/switch.component';
 
       <Input value="Candidate ID"/>
