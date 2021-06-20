@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios';
 import Input from './Components/Input/Input.component';
 
 
 function App() {
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(
+    {
     candidate: "",
     id: "",
     info: {
@@ -32,7 +33,7 @@ function App() {
     availableNow: "",
     mainSkills: ""
   })
-  
+
   const handleInputChange = (event) => {
     setFormData({
       ...formData,
@@ -40,16 +41,7 @@ function App() {
     })
   }
 
-  useEffect(() => {
-    const inputFields = axios.get('http://localhost:8080/interview/inputFields')
-    .then(res => {
-      console.log(res.data)
-      return res.data
-    })
-    .catch(err => console.log(err))
-    console.log(inputFields)
-    return 
-  }, [])
+
 
   const handleOnSubmit = (event) => {
     event.preventDefault()
@@ -62,22 +54,28 @@ function App() {
   return (
     <div className="App">
       <form onSubmit={handleOnSubmit}>
-        { Object.keys(formData).filter( key => {
-          return typeof key === undefined
-          }).map( element => {
-            return <Input key={element} value={element} onChange={handleInputChange} />
-          })
+        { Object.entries(formData).filter(value => {
+          console.log(value)
+          return value[1] === ""
+        }).map(value => {
+          return <Input key={value[0]} value={value[0]} onChange={handleInputChange} />
+        })
         }
-        {/* <label id="candidate">Full Name</label>
-        <input htmlFor="candidate" name="candidate" onChange={handleInputChange}></input>
-        <label id="id">Id Candidato</label>
-        <input htmlFor="id" name="id" onChange={handleInputChange}></input> */}
-        {/* <label id="info">Info</label>
-        <input htmlFor="info" name="info" onChange={handleInputChange}></input> */}
-        {/* <label id="availableNow">availableNow</label>
-        <input htmlFor="availableNow" name="availableNow" onChange={handleInputChange}></input>
-        <label id="mainSkills">mainSkills</label>
-        <input htmlFor="mainSkills" name="mainSkills" onChange={handleInputChange}></input> */}
+        
+        { Object.entries(formData).filter(value => {
+          return value[1] !== ""
+        }).map(value => {
+          console.log(value[1])
+          return (
+            <div key={value[0]}>
+              <p>{value[0]}</p>
+              { Object.keys(value[1]).map(key => {
+                return <Input key={key} value={key} onChange={handleInputChange} />
+              })}
+            </div>
+            )
+        })
+        }
         <button type="submit">Enviar</button>
       </form>
     </div>
