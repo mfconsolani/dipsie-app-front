@@ -8,8 +8,8 @@ const Input = (props) => {
         <div>
             <Box m={2}>
                 <TextField required
-                    id="outlined-required"
-                    label={props.value}
+                    // id="outlined-required"
+                    label={props.name}
                     defaultValue=""
                     variant="outlined"
                 />

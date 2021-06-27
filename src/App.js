@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import axios from 'axios';
-import Input from './Components/Input/Input.component';
+// import Input from './Components/Input/Input.component';
+// import { TextField } from '@material-ui/core';
+// import Box from '@material-ui/core/Box';
+// import { Input } from '@material-ui/core';
+
 
 
 function App() {
@@ -9,11 +13,10 @@ function App() {
     {
     candidate: "",
     id: "",
-    info: {
       currentSituation: "",
       motivationToChange: "",
       freelanceOrPerm: "",
-      inermediaries: "",
+      intermediaries: "",
       yearsInSap: "",
       coreModule: "",
       fullCycleImp: "",
@@ -28,25 +31,31 @@ function App() {
       fullname: "",
       birthday: "",
       permInAccenture: "",
-      otherProvider: ""
-    },
+      otherProvider: "",
     availableNow: "",
     mainSkills: ""
   })
 
   const handleInputChange = (event) => {
+    console.log(event.target.value)
+    // console.log(event.target.name)
     setFormData({
       ...formData,
       [event.target.name]: event.target.value
     })
   }
 
-
-
   const handleOnSubmit = (event) => {
     event.preventDefault()
-
-    axios.post('http://localhost:8080/interview/', formData)
+    const { candidate, id, availableNow, mainSkills, ...rest} = formData
+    console.log(formData)
+    axios.post('http://localhost:8080/interview/', {
+      candidate,
+      id,
+      info: rest,
+      availableNow,
+      mainSkills
+    })
     .then(res => console.log(res))
     .catch(err => console.log(err))
   }
@@ -54,15 +63,36 @@ function App() {
   return (
     <div className="App">
       <form onSubmit={handleOnSubmit}>
-        { Object.entries(formData).filter(value => {
-          console.log(value)
-          return value[1] === ""
-        }).map(value => {
-          return <Input key={value[0]} value={value[0]} onChange={handleInputChange} />
+
+        {/* TODO */}
+        {/* Crear mi propio componente de label e input y usar las 
+        funciones comentadas de abajo para poder
+        loopear sobre el estado y crear los inputs y labels  */}
+
+        { Object.entries(formData).map(value => {
+          if (value[0] === "info") {
+            return Object.keys(value[1]).map(key => {
+              return (
+                <div key={key}>
+                <label>{key}</label>
+                <input type="text" name={key} onChange={handleInputChange}/>
+                </div>
+              )              
+            })
+              // console.log(value[1].currentSituation)
+          } else {
+            return (
+              <div key={value[0]}>
+              <label>{value[0]}</label>
+              <input type="text" name={value[0]} onChange={handleInputChange}/>
+              </div>
+            )
+          }
+          // return <Input key={value[0]} name={value[0]} onChange={handleInputChange}/>
         })
         }
         
-        { Object.entries(formData).filter(value => {
+        {/* { Object.entries(formData).filter(value => {
           return value[1] !== ""
         }).map(value => {
           console.log(value[1])
@@ -70,12 +100,11 @@ function App() {
             <div key={value[0]}>
               <p>{value[0]}</p>
               { Object.keys(value[1]).map(key => {
-                return <Input key={key} value={key} onChange={handleInputChange} />
+                return <Input key={key} name={key} onChange={handleInputChange} />
               })}
             </div>
-            )
-        })
-        }
+          )})
+        } */}
         <button type="submit">Enviar</button>
       </form>
     </div>
