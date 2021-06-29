@@ -9,32 +9,33 @@ import axios from 'axios';
 
 function App() {
 
-  const [formData, setFormData] = useState(
-    {
+  const initialState = {
     candidate: "",
     id: "",
-      currentSituation: "",
-      motivationToChange: "",
-      freelanceOrPerm: "",
-      intermediaries: "",
-      yearsInSap: "",
-      coreModule: "",
-      fullCycleImp: "",
-      hanaExperience: "",
-      referencias: false,
-      englishLevel: "",
-      dailyRate: "",
-      availability: "",
-      interviewAvail: "",
-      otherProcess: "",
-      counteroffer: "",
-      fullname: "",
-      birthday: "",
-      permInAccenture: "",
-      otherProvider: "",
+    currentSituation: "",
+    motivationToChange: "",
+    freelanceOrPerm: "",
+    intermediaries: "",
+    yearsInSap: "",
+    coreModule: "",
+    fullCycleImp: "",
+    hanaExperience: "",
+    referencias: "",
+    englishLevel: "",
+    dailyRate: "",
+    availability: "",
+    interviewAvail: "",
+    otherProcess: "",
+    counteroffer: "",
+    fullname: "",
+    birthday: "",
+    permInAccenture: "",
+    otherProvider: "",
     availableNow: "",
     mainSkills: ""
-  })
+}
+
+  const [formData, setFormData] = useState({...initialState})
 
   const handleInputChange = (event) => {
     console.log(event.target.value)
@@ -58,6 +59,9 @@ function App() {
     })
     .then(res => console.log(res))
     .catch(err => console.log(err))
+    console.log(initialState)
+    return setFormData({...initialState})
+    
   }
 
   return (
@@ -70,24 +74,22 @@ function App() {
         loopear sobre el estado y crear los inputs y labels  */}
 
         { Object.entries(formData).map(value => {
-          if (value[0] === "info") {
-            return Object.keys(value[1]).map(key => {
+          // if (value[0] === "info") {
               return (
-                <div key={key}>
-                <label>{key}</label>
-                <input type="text" name={key} onChange={handleInputChange}/>
+                <div key={value[0]}>
+                <label>{value[0]}</label>
+                <input type="text" name={value[0]} value={value[1]} onChange={handleInputChange}/>
                 </div>
               )              
-            })
               // console.log(value[1].currentSituation)
-          } else {
-            return (
-              <div key={value[0]}>
-              <label>{value[0]}</label>
-              <input type="text" name={value[0]} onChange={handleInputChange}/>
-              </div>
-            )
-          }
+          // } else {
+          //   return (
+          //     <div key={value[0]}>
+          //     <label>{value[0]}</label>
+          //     <input type="text" name={value[0]} onChange={handleInputChange}/>
+          //     </div>
+          //   )
+          // }
           // return <Input key={value[0]} name={value[0]} onChange={handleInputChange}/>
         })
         }
