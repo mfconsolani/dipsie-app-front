@@ -44,6 +44,7 @@ function App() {
   const handleOnSubmit = (event) => {
     event.preventDefault()
     const { candidate, id, availableNow, mainSkills, ...rest} = formData
+    console.log(referencias.value)
     axios.post('http://localhost:8080/interview/', {
       candidate,
       id,
@@ -57,6 +58,13 @@ function App() {
     
   }
 
+  let referencias = {
+    name: "referencias",
+    type: "radio",
+    value: "",
+    titulo: "Mencion pedido de referencias"
+}
+
   return (
     <div className="App">
       <form onSubmit={handleOnSubmit}>
@@ -67,9 +75,9 @@ function App() {
             key={value[0]} 
             name={value[0]} 
             value={value[1]} 
-            onChange={handleInputChange} />
-          )
-        })
+            onChange={handleInputChange}/>
+            )
+          })
         }
         <button type="submit">Enviar</button>
       </form>
