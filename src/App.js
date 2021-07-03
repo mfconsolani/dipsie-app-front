@@ -1,75 +1,12 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios';
+import React from 'react'
 import InputField from './Components/Input/InputField.component';
 import RadioField from './Components/radioInput/RadioField.component';
-import { INPUT_FIELDS } from './variables';
+import { useFormContext } from './utils/hooks'
 
 function App() {
 
-  const [formData, setFormData] = useState({...INPUT_FIELDS})
-
-
-  const handleInputChange = (event) => {
-    const { value, ...rest } = formData[event.target.id]
-    setFormData({
-      ...formData,
-      [event.target.id]: {
-        ...rest,
-        value: event.target.value
-      }
-    })
-    return
-  }
-
-  // useEffect(() => {
-  //   console.log(formData.referencias)
-  // }, [formData]) 
-
-  const handleRadioChange = (event) => {
-    const { value, ...rest } = formData[event.target.name]
-    console.log(value, rest)
-    setFormData({
-      ...formData,
-      [event.target.name]: {
-        ...rest,
-        value: event.target.value
-      }
-    })
-    return
-  }
-
-  const flattenAttributes = (object) => {
-    let customProps = {}
-    Object.entries(object).map(values => {
-      let newValue = {[values[0]]: values[1].value}
-      return Object.assign(customProps, newValue) 
-    })
-    return customProps
-  }
-
-  const handleOnSubmit = (event) => {
-    event.preventDefault()
-    const { candidate, id, availableNow, mainSkills, ...rest} = formData
-
-    axios.post('http://localhost:8080/interview/', {
-      candidate: candidate.value,
-      id: id.value,
-      info: flattenAttributes(rest),
-      availableNow: availableNow.value,
-      mainSkills: mainSkills.value
-    })
-    .then(res => {
-      console.log({'Response Status': {
-        'status': res.status,
-        'data': res.data}
-      })
-      setFormData({...INPUT_FIELDS})
-    })
-    .catch(err => console.log(err.data))
-    return  
-    
-  }
-
+  const {formData, handleInputChange, handleOnSubmit, handleRadioChange} = useFormContext()
+  
   return (
     <div className="App">
       <form onSubmit={handleOnSubmit}>
