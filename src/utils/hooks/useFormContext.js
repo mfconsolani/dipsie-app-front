@@ -2,12 +2,13 @@ import {useState} from 'react'
 import axios from 'axios'
 import {flattenAttributes} from '../helpers'
 import { INPUT_FIELDS } from '../../variables'
-/**
- * 
+
+/** * 
  * @typedef {Object} FormContext
- * @property {function(event)} handleInputChange
- * @property {function(event)} handleRadioChange
- * @property {Object} formData   
+ * @property {function} handleInputChange
+ * @property {function} handleRadioChange
+ * @property {function} handleOnSubmit
+ * @property {object} formData   
  */
 
 /**

@@ -4,7 +4,12 @@ import { useFormContext } from './utils/hooks'
 
 function App() {
 
-  const {formData, handleInputChange, handleOnSubmit, handleRadioChange} = useFormContext()
+  const {
+          formData,
+          handleInputChange,
+          handleOnSubmit,
+          handleRadioChange
+        } = useFormContext()
   
   return (
     <div className="App">
