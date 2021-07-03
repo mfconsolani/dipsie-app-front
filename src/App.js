@@ -1,6 +1,5 @@
 import React from 'react'
-import InputField from './Components/Input/InputField.component';
-import RadioField from './Components/radioInput/RadioField.component';
+import {InputField, RadioField} from './Components';
 import { useFormContext } from './utils/hooks'
 
 function App() {
