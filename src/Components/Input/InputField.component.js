@@ -1,6 +1,6 @@
-import './input.component.css'
+import './InputField.component.css'
 
-const InputField = ({name, value, onChange}) => {
+const InputField = ({id, name, value, onChange}) => {
 
     const handleInputChange = (event) => {
         onChange(event)
@@ -11,7 +11,7 @@ const InputField = ({name, value, onChange}) => {
             <div>
                 <label>{name}</label>
             </div>
-            <input type="text" name={name} value={value} onChange={handleInputChange}/>
+            <input id={id} type="text" name={name} value={value} onChange={handleInputChange}/>
         </div>
     )
 }
