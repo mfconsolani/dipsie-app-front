@@ -28,14 +28,14 @@ function App() {
   const handleRadioChange = (event) => {
     const { value, ...rest } = formData[event.target.name]
     console.log(value, rest)
-    setFormData({
+    return setFormData({
       ...formData,
       [event.target.name]: {
         ...rest,
         value: event.target.value
       }
     })
-    return
+    
   }
 
   const flattenAttributes = (object) => {
@@ -61,11 +61,14 @@ function App() {
     .then(res => {
       console.log({'Response Status': {
         'status': res.status,
-        'data': res.data}
-      })
+        'data': res.data
+      }})
       setFormData({...INPUT_FIELDS})
     })
-    .catch(err => console.log(err.data))
+    .catch(err => console.log({'Response Status': {
+      'status': err.status,
+      'data': err.data
+    }}))
     return  
     
   }

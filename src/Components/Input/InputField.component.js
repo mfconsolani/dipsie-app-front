@@ -11,7 +11,13 @@ const InputField = ({id, name, value, onChange}) => {
             <div>
                 <label>{name}</label>
             </div>
-            <input id={id} type="text" name={name} value={value} onChange={handleInputChange}/>
+            <input 
+            id={id} 
+            type="text" 
+            name={name} 
+            value={value}
+            required 
+            onChange={handleInputChange}/>
         </div>
     )
 }
