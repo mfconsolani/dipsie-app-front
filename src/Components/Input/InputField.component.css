@@ -1,0 +1,11 @@
+input {
+    border: 2px solid rgb(149, 120, 228);
+    border-radius: 3px;
+    box-shadow: 3px 3px 8px 1px #c0d1eb;
+    height: 2em;
+    width: auto;
+}
+
+input:focus {
+    border: white;
+}

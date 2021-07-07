@@ -57,7 +57,10 @@ const useFormContext = () => {
           })
           setFormData({...INPUT_FIELDS})
         })
-        .catch(err => console.log(err.data))
+        .catch(err => console.log({'Response Status': {
+          'status': err.status,
+          'data': err.data}
+        }))
         return  
         
       }
