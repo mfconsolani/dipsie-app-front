@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(98, 147, 238);
+}
+
+.App{
+    background-color: rgba(49, 48, 48, 0.5);
+    border-radius: 10px;
+    padding: 3em;
+}
+
+form {
+    display:grid;
+    grid-template-columns: 30% 30% 30%;
+    margin: auto;
+    grid-column-gap: 5%;
+    color: #fff;
+}

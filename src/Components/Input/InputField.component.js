@@ -7,7 +7,7 @@ const InputField = ({id, name, value, onChange}) => {
     }
 
     return (
-        <div>
+        <div className="input-parent-div">
             <div>
                 <label>{name}</label>
             </div>
