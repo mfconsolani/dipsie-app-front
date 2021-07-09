@@ -1,1 +1,1 @@
-export {default as flattenAttributes} from './flattenAttributes'
+export { default as flattenAttributes } from "./flattenAttributes";

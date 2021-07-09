@@ -37,5 +37,6 @@ import Input from './Components/Input/Input.component';
       return
     })
     .catch(err => console.log(err))
-    return 
-  }, [])
+    return
+
+}, [])

@@ -1,17 +1,17 @@
-input[type=text] {
-    /* border-bottom: 2px solid #606060; */
-    /* border-radius: 3px; */
-    /* box-shadow: 1px 1px 3px 1px #a0a0a0; */
-    height: 2em;
-    width: auto;
+/* input[type=text] { */
+/* border-bottom: 2px solid #606060; */
+/* border-radius: 3px; */
+/* box-shadow: 1px 1px 3px 1px #a0a0a0; */
+/* height: 2em; */
+/* width: auto;
     box-sizing: border-box;
     background-color: rgba(256, 256, 256, 0.5);
-    border: none;
-    /* border-bottom: none; */
-    /* border-right: none; */
-}
+    border: none; */
+/* border-bottom: none; */
+/* border-right: none; */
+/* } */
 
-input[type=text]:focus {
+/* input[type=text]:focus {
     border: 2px solid #668bc2;
     box-shadow: 2px 2px 5px 1px #668bc2;
     outline:0px;
@@ -24,4 +24,4 @@ input[type=text]:focus {
 
 .input-parent-div {
     margin-top: 10px;
-}
+} */
