@@ -1,43 +1,60 @@
 import React from 'react'
-import {InputField, RadioField} from './Components';
-import { useFormContext } from './utils/hooks'
+// import {InputField, RadioField} from './Components';
+// import { useFormContext } from './utils/hooks'
+import { useForm } from 'react-hook-form';
 import './App.css'
+import { INPUT_FIELDS } from './variables.js';
+
+const InputField = ({id, name, value, register}) => {
+
+  return (
+      <div className="input-parent-div">
+          <div>
+              <label>{name}</label>
+          </div>
+          <input {...register(id, {
+              id:id, 
+              type:"text",
+              value:value,
+              required: {value: true, message: "Campo requerido"}})}/>
+      </div>
+  )
+}
 
 function App() {
 
   const {
-          formData,
-          handleInputChange,
-          handleOnSubmit,
-          handleRadioChange
-        } = useFormContext()
+    register,
+    handleSubmit,
+    reset,
+    formState
+  } = useForm();
+  const onSubmit = data => console.log(data);
   
+  React.useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset();
+    }
+  }, [formState, reset]);
+
   return (
     <div className="App">
-      <form onSubmit={handleOnSubmit}>
-      { Object.entries(formData).map(entry => {
-        // console.log(entry)
+      <form onSubmit={handleSubmit(onSubmit)}>
+      { Object.entries(INPUT_FIELDS).map(entry => {
         if (entry[1].type === "text"){
           return (
+            <div key={entry[0]}>
             <InputField
             id={entry[0]} 
-            key={entry[0]} 
             name={entry[1].name} 
             value={entry[1].value} 
-            onChange={handleInputChange}/>
+            register={register}/>
+            {/* {errors.id && <span>{console.alert(errors.id.message)}</span>} */}
+            </div>
             )
-        } else if (entry[1].type === "radio"){
-          return (
-            <RadioField
-            id={entry[0]} 
-            key={entry[0]}
-            titulo={entry[1].titulo}
-            type={entry[1].type} 
-            name={entry[1].name} 
-            onChange={handleRadioChange}/>
-            )
+        } else {
+          return <p key={entry[0]}>Imposible to render</p>
         }
-        return formData
           })
         }
         <button type="submit">Enviar</button>

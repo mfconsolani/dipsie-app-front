@@ -43,7 +43,7 @@ const useFormContext = () => {
         event.preventDefault()
         const { candidate, id, availableNow, mainSkills, ...rest} = formData
     
-        axios.post('http://localhost:8080/interview/', {
+        axios.post('http://localhost:7500/interview/', {
           candidate: candidate.value,
           id: id.value,
           info: flattenAttributes(rest),
