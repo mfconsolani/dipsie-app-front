@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import { useFormContext } from './utils/hooks/index';
 import axios from 'axios'
@@ -52,7 +53,9 @@ function App() {
         const candidateData = res.data.Candidato[0]
         setCandidateInfo(candidateData)
         const dates = res.data.Candidato[0].candidateInfo.map(element => {
-          return element.postSavingDate
+            // console.log(moment(element.postSavingDate).format("LLL"))
+            element.postSavingDate = moment(new Date(element.postSavingDate)).format("LLL")
+          return moment(new Date(element.postSavingDate)).format("LLL")
         })
         setPostDates(dates)
         setPostDateSelected([res.data.Candidato[0].candidateInfo[0]])
@@ -60,18 +63,13 @@ function App() {
       }).catch(err => {
         console.log({
           'Response Status': {
-            'status': err.status,
-            'data': err.data
-          }
-        })
+            'status': err.response.status,
+            'data': err.response.data
+          }})
         return setUserId(null)
   })
   return
 }, [userId])
-
-// React.useEffect(() => {
-//   console.log(postDateSelected)
-// }, [postDateSelected]);
 
 React.useEffect(() => {
   if (!userId) {
@@ -94,7 +92,6 @@ return (
       <div>
         <button onClick={() => {
           setRenderView({ loadInfo: true, getInfo: false })
-          // setPostDateSelected(null)
         }}
         >Cargar información</button>
       </div>
@@ -160,13 +157,6 @@ return (
               })}
             </select>}
         </div>
-
-        {/* availableNow: false
-candidateId: 1
-candidateInfo: [{…}]
-candidateName: "1"
-mainSkills: "1" */}
-
         {postDateSelected &&
           <div>
             <div>
@@ -189,7 +179,6 @@ mainSkills: "1" */}
                     element[2] = values[1].name
                   }
                   return values[1].name
-                  // return null
                 })
                 return (
                   <div key={element[0]}>
