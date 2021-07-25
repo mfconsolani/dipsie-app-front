@@ -1,27 +1,27 @@
-import React from 'react'
-// import {InputField, RadioField} from './Components';
-// import { useFormContext } from './utils/hooks'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { useFormContext } from './utils/hooks/index';
+import axios from 'axios'
 import './App.css'
 import { INPUT_FIELDS } from './variables.js';
-
-const InputField = ({id, name, value, register}) => {
-
-  return (
-      <div className="input-parent-div">
-          <div>
-              <label>{name}</label>
-          </div>
-          <input {...register(id, {
-              id:id, 
-              type:"text",
-              value:value,
-              required: {value: true, message: "Campo requerido"}})}/>
-      </div>
-  )
-}
+import InputField from "./Components/Input/InputField.component"
+import RadioInput from "./Components/radioInput/RadioField.component"
 
 function App() {
+
+  const [renderView, setRenderView] = useState({
+    loadInfo: false,
+    getInfo: false
+  })
+  const [userId, setUserId] = useState(null)
+  const [candidateInfo, setCandidateInfo] = useState(null)
+  const [postDates, setPostDates] = useState(null)
+  const [postDateSelected, setPostDateSelected] = useState(null)
+
+
+  const {
+    handleOnSubmit
+  } = useFormContext();
 
   const {
     register,
@@ -29,38 +29,181 @@ function App() {
     reset,
     formState
   } = useForm();
-  const onSubmit = data => console.log(data);
-  
+
+  const onSubmit = data => {
+    handleOnSubmit(data)
+  }
+
   React.useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
     }
   }, [formState, reset]);
 
-  return (
-    <div className="App">
+  React.useEffect(() => {
+    axios.get(`http://localhost:8080/interview/${userId}`)
+      .then(res => {
+        console.log({
+          'Response Status': {
+            'status': res.status,
+            'data': res.data
+          }
+        })
+        const candidateData = res.data.Candidato[0]
+        setCandidateInfo(candidateData)
+        const dates = res.data.Candidato[0].candidateInfo.map(element => {
+          return element.postSavingDate
+        })
+        setPostDates(dates)
+        setPostDateSelected([res.data.Candidato[0].candidateInfo[0]])
+        return
+      }).catch(err => {
+        console.log({
+          'Response Status': {
+            'status': err.status,
+            'data': err.data
+          }
+        })
+        return setUserId(null)
+  })
+  return
+}, [userId])
+
+// React.useEffect(() => {
+//   console.log(postDateSelected)
+// }, [postDateSelected]);
+
+React.useEffect(() => {
+  if (!userId) {
+    setPostDateSelected(null)
+    setPostDates(null)
+  }
+}, [userId]);
+
+
+return (
+  <div className="App">
+
+    <div>
+      <div>
+        <button onClick={() => {
+          setRenderView({ loadInfo: false, getInfo: true })
+        }}
+        >Buscar Candidato</button>
+      </div>
+      <div>
+        <button onClick={() => {
+          setRenderView({ loadInfo: true, getInfo: false })
+          // setPostDateSelected(null)
+        }}
+        >Cargar información</button>
+      </div>
+    </div>
+
+    {renderView.loadInfo && <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-      { Object.entries(INPUT_FIELDS).map(entry => {
-        if (entry[1].type === "text"){
-          return (
-            <div key={entry[0]}>
-            <InputField
-            id={entry[0]} 
-            name={entry[1].name} 
-            value={entry[1].value} 
-            register={register}/>
-            {/* {errors.id && <span>{console.alert(errors.id.message)}</span>} */}
-            </div>
+        {Object.entries(INPUT_FIELDS).map(entry => {
+          if (entry[1].type === "text") {
+            return (
+              <div key={entry[0]}>
+                <InputField
+                  id={entry[0]}
+                  name={entry[1].name}
+                  value={entry[1].value}
+                  register={register}
+                />
+              </div>
             )
-        } else {
-          return <p key={entry[0]}>Imposible to render</p>
-        }
-          })
+          } else {
+            return (
+              <div key={entry[1].name}>
+                <RadioInput
+                  titulo={entry[1].titulo}
+                  name={entry[1].name}
+                  type={entry[1].type}
+                  register={register}
+                />
+              </div>
+            )
+          }
+        })
         }
         <button type="submit">Enviar</button>
       </form>
-    </div>
-  );
+    </div>}
+
+    {renderView.getInfo &&
+      <form onSubmit={(event) => {
+        event.preventDefault()
+        setUserId(event.target.idCandidate.value)
+      }
+      }>
+        <div>
+          <label>ID Candidato</label>
+          <input type="text" id="idCandidate" required />
+          <button type="submit">Buscar</button>
+
+          {postDates &&
+
+            <select onChange={(event) => {
+              // console.log(event.target.value)
+              const dateSelected = candidateInfo.candidateInfo.filter(element => {
+                return element.postSavingDate === event.target.value
+              })
+              setPostDateSelected(dateSelected)
+            }}>
+              {postDates.map(element => {
+                return (<option
+                  key={element}
+                  value={element}>
+                  {element}</option>)
+              })}
+            </select>}
+        </div>
+
+        {/* availableNow: false
+candidateId: 1
+candidateInfo: [{…}]
+candidateName: "1"
+mainSkills: "1" */}
+
+        {postDateSelected &&
+          <div>
+            <div>
+              <div>
+                <span>ID: </span><span>{candidateInfo.candidateId}</span>
+              </div>
+              <div>
+                <span>Name: </span><span>{candidateInfo.candidateName}</span>
+              </div>
+              <div>
+                <span>Main Skills: </span><span>{candidateInfo.mainSkills}</span>
+              </div>
+            </div>
+            {Object
+              .entries(postDateSelected[0])
+              .filter(element => element[0] !== "_id")
+              .map(element => {
+                Object.entries(INPUT_FIELDS).map(values => {
+                  if (values[0] === element[0]) {
+                    element[2] = values[1].name
+                  }
+                  return values[1].name
+                  // return null
+                })
+                return (
+                  <div key={element[0]}>
+                    <span>{element[2]}: </span>
+                    <span>{element[1]}</span>
+                  </div>)
+              })}
+          </div>
+        }
+      </form>
+    }
+  </div>
+
+);
 }
 
 export default App;

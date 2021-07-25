@@ -39,3 +39,5 @@ import Input from './Components/Input/Input.component';
     .catch(err => console.log(err))
     return 
   }, [])
+
+                {/* {errors.id && <span>{console.alert(errors.id.message)}</span>} */}
