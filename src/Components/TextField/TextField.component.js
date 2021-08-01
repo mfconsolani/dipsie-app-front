@@ -1,9 +1,9 @@
-import './InputField.component.css'
+import './TextField.component.css'
 
-const InputField = ({ id, name, value, register }) => {
+const TextField = ({ id, name, value, register }) => {
 
     return (
-      <div className="input-parent-div">
+      <div className="input-parent-div" key={name}>
         <div>
           <label>{name}</label>
         </div>
@@ -18,4 +18,4 @@ const InputField = ({ id, name, value, register }) => {
   }
 
 
-export default InputField
+export default TextField

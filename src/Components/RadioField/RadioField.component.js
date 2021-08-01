@@ -1,9 +1,9 @@
 import './RadioField.component.css'
 
-const RadioInput = ({ titulo, type, name, register }) => {
+const RadioField = ({ titulo, type, name, register }) => {
 
   return (
-    <div>
+    <div key={name}>
       <p>{titulo}</p>
       <div>
         <input
@@ -29,4 +29,4 @@ const RadioInput = ({ titulo, type, name, register }) => {
   )
 }
 
-export default RadioInput;
+export default RadioField;
