@@ -1,9 +1,9 @@
 import './TextField.component.css'
 
 const TextField = ({ id, name, value, register }) => {
-
+    // console.log(id)
     return (
-      <div className="input-parent-div" key={name}>
+      <div className="input-parent-div">
         <div>
           <label>{name}</label>
         </div>

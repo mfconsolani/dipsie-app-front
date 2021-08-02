@@ -3,7 +3,7 @@ import './RadioField.component.css'
 const RadioField = ({ titulo, type, name, register }) => {
 
   return (
-    <div key={name}>
+    <div>
       <p>{titulo}</p>
       <div>
         <input

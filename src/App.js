@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useFormContext } from './utils/hooks/index';
-import { INPUT_FIELDS } from './variables.js';
-import { TextField, RadioField, DataField, MainInfo } from "./Components"
+import { DataField, MainInfo, EntryForm, Button, SearchForm, SelectField } from "./Components"
 import moment from 'moment';
 import axios from 'axios'
 import './App.css'
 
+// TO DO
+// Chequear el pasamanos de funciones que estoy haciendo con los handleSubmit
+// Cuando busco nuevos candidatos se vuelve a renderizar todo
+
 function App() {
 
-  const [renderView, setRenderView] = useState({
-    loadInfo: false,
-    getInfo: false
-  })
+  const [renderView, setRenderView] = useState({ loadInfo: false, getInfo: false })
   const [userId, setUserId] = useState(null)
   const [candidateData, setCandidateData] = useState(null)
   const [entrySelected, setEntrySelected] = useState(null)
@@ -28,10 +28,6 @@ function App() {
     reset,
     formState
   } = useForm();
-
-  const onSubmit = data => {
-    handleOnSubmit(data)
-  }
 
   React.useEffect(() => {
     if (formState.isSubmitSuccessful) {
@@ -50,122 +46,67 @@ function App() {
             }
           })
           const candidate = res.data.Candidato[0]
-          setCandidateData(candidate)
           candidate.candidateInfo.map(element => {
             element.postSavingDate = moment(new Date(element.postSavingDate)).format('lll')
             return null
           })
+          setCandidateData(candidate)
+          // console.log(candidate.candidateInfo[0])
           setEntrySelected([candidate.candidateInfo[0]])
           return
         }).catch(err => {
-          console.log(err)
           console.log({
             'Response Status': {
-              'status': err.response.status,
-              'data': err.response.data
+              'status': err.response?.request?.status,
+              'data': err.response?.request?.data
             }
           })
           return
         })
     }
-    return
+    return (setCandidateData(null), setEntrySelected(null))
   }, [userId])
 
-  React.useEffect(() => {
-    if (!userId) {
-      setEntrySelected(null)
-    }
-  }, [userId]);
 
+  function searchCandidate() {
+    return setRenderView({ loadInfo: false, getInfo: true })
+  }
+
+  function uploadEntry() {
+    return setRenderView({ loadInfo: true, getInfo: false })
+  }
+
+  function searchId(event) {
+    event.preventDefault()
+    return setUserId(event.target.idCandidate.value)
+  }
+
+  function selectEntry(event) {
+    const dateSelected = candidateData.candidateInfo.filter(element => {
+      return element.postSavingDate === event.target.value
+    })
+    return setEntrySelected(dateSelected)
+  }
 
   return (
     <div className="App">
-
-      <div>
-        <div>
-          <button onClick={() => {
-            setRenderView({ loadInfo: false, getInfo: true })
-          }}
-          >Buscar Candidato</button>
-        </div>
-        <div>
-          <button onClick={() => {
-            setRenderView({ loadInfo: true, getInfo: false })
-          }}
-          >Cargar información</button>
-        </div>
-      </div>
-
-      {renderView.loadInfo && <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {Object.entries(INPUT_FIELDS).map(entry => {
-            if (entry[1].type === "text") {
-              return (
-                  <TextField
-                    id={entry[0]}
-                    name={entry[1].name}
-                    value={entry[1].value}
-                    register={register}
-                  />
-              )
-            } else {
-              return (
-                  <RadioField
-                    titulo={entry[1].titulo}
-                    name={entry[1].name}
-                    type={entry[1].type}
-                    register={register}
-                  />
-                )
-            }
-          })
-          }
-          <button type="submit">Enviar</button>
-        </form>
-      </div>}
-
+      <Button onClick={searchCandidate} name="Buscar Candidato" />
+      <Button onClick={uploadEntry} name="Cargar información" />
+      {renderView.loadInfo && <EntryForm register={register} onSubmit={handleSubmit(handleOnSubmit)} />}
       {renderView.getInfo &&
-        <form onSubmit={(event) => {
-          event.preventDefault()
-          setUserId(event.target.idCandidate.value)
-        }
-        }>
-          <div>
-            <label>ID Candidato</label>
-            <input type="text" id="idCandidate" required />
-            <button type="submit">Buscar</button>
-
-            {candidateData &&
-
-              <select onChange={(event) => {
-                const dateSelected = candidateData.candidateInfo.filter(element => {
-                  return element.postSavingDate === event.target.value
-                })
-                console.log(dateSelected)
-                setEntrySelected(dateSelected)
-              }}>
-
-                {candidateData.candidateInfo.map((element) => {
-                  return (<option
-                    key={element._id}
-                    value={element.postSavingDate}>
-                    {element.postSavingDate}</option>)
-                })}
-              </select>}
-          </div>
+        <div>
+          <SearchForm onSubmit={searchId} />
+          {candidateData && <SelectField onChange={selectEntry} candidate={candidateData} />}
           {entrySelected &&
             <div>
               <MainInfo
                 id={candidateData.candidateId}
                 name={candidateData.candidateName}
-                skills={candidateData.mainSkills}
-              />
-              <DataField
-                entry={entrySelected[0]}
-                />
+                skills={candidateData.mainSkills} />
+              <DataField entry={entrySelected[0]} />
             </div>
           }
-        </form>
+        </div>
       }
     </div>
 
