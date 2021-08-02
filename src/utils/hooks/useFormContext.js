@@ -1,6 +1,5 @@
 import {useState} from 'react'
 import axios from 'axios'
-import {flattenAttributes} from '../helpers'
 import { INPUT_FIELDS } from '../../variables'
 
 /** * 
@@ -39,25 +38,26 @@ const useFormContext = () => {
         })
     }
 
-    const handleOnSubmit = (event) => {
-        event.preventDefault()
-        const { candidate, id, availableNow, mainSkills, ...rest} = formData
+    const handleOnSubmit = (data) => {
+        const { candidate, id, availableNow, mainSkills, ...rest} = data
     
         axios.post('http://localhost:8080/interview/', {
-          candidate: candidate.value,
-          id: id.value,
-          info: flattenAttributes(rest),
-          availableNow: availableNow.value,
-          mainSkills: mainSkills.value
+          candidate,
+          id,
+          info: {...rest},
+          availableNow,
+          mainSkills
         })
         .then(res => {
           console.log({'Response Status': {
             'status': res.status,
             'data': res.data}
           })
-          setFormData({...INPUT_FIELDS})
         })
-        .catch(err => console.log(err.data))
+        .catch(err => console.log({'Response Status': {
+          'status': err.status,
+          'data': err.data}
+        }))
         return  
         
       }
