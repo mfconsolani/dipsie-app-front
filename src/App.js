@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useFormContext, useFetchCandidate } from './utils/hooks';
 import { DataField, MainInfo, EntryForm, Button, SearchForm, SelectField } from "./Components"
+import { Row } from '@geist-ui/react'
 import './App.css'
 
 //TODO
@@ -62,7 +63,7 @@ function App() {
     })
     return setEntrySelected(dateSelected)
   }
-  
+
   return (
     <div className="App">
       <header>
@@ -72,10 +73,12 @@ function App() {
       {renderView.loadInfo && <EntryForm register={register} onSubmit={handleSubmit(handleOnSubmit)} />}
       {renderView.getInfo &&
         <div>
+          <Row style={{display: "flex", alignItems: "center", flexWrap: "wrap", gap: "1em"}}>
           <SearchForm label="ID Candidato" onSubmit={searchId} />
           {candidateData && entrySelected ?
             <SelectField entry={entrySelected} onChange={selectEntry} candidate={candidateData} />
             : null}
+          </Row>
           {entrySelected &&
             <div>
               <MainInfo

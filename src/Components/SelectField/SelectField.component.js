@@ -5,7 +5,7 @@ import { Select, Grid } from '@geist-ui/react'
 const SelectField = ({ onChange, candidate, entry}) => {
 
     return (
-        <Grid style={{margin: "1em"}}>
+        <Grid id="selectFieldGrid">
         <Select onChange={onChange} placeholder={entry[0].postSavingDate} >
         {candidate.candidateInfo.map((element) => {
                 return (

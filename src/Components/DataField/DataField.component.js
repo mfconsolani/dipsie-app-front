@@ -1,13 +1,14 @@
 import React from 'react'
 import { INPUT_FIELDS } from "../../variables"
 import "./DataField.styles.css"
-import { Description, Grid, Spacer } from '@geist-ui/react'
+import { Description, Grid, Spacer, Card } from '@geist-ui/react'
 
 const DataField = ({ entry }) => {
 
     return (entry 
         ? 
-        <Grid.Container gap={1} style={{margin:"1em"}}>
+        <Card style={{margin: "1em", width: "auto"}} hoverable>
+        <Grid.Container gap={1}>
         {Object
             .entries(entry)
             .filter(element => element[0] !== "_id")
@@ -33,6 +34,7 @@ const DataField = ({ entry }) => {
                 )
             })}
             </Grid.Container>
+            </Card>
         : <p>No hay información disponible</p>)
 }
 
