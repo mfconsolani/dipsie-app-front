@@ -1,0 +1,11 @@
+form {
+    display: flex;
+    margin: 1em;
+}
+
+.mainContainer{
+    padding:1em;
+    background-color: #FAFAFA;
+    border-radius: 6px;
+
+}

@@ -41,3 +41,34 @@ import Input from './Components/Input/Input.component';
   }, [])
 
                 {/* {errors.id && <span>{console.alert(errors.id.message)}</span>} */}
+
+
+
+if (Object.keys(INPUT_FIELDS) === Object.keys(postDateSelected){
+  INPUT_FIELDS.prop.value = postDateSelected[1]
+}
+
+Nombre de la empresa: 
+CIF (registration number): 
+Direccion de la empresa: 
+
+Nombre completo del representate legal (la persona que firma en representación de la empresa)
+Correo Electronico:
+DNI:
+
+Consultar contrato español o ingles?
+
+Consultor:
+Nombre: Lucas Patricio Milovich
+Correo Electronico: lpmilovich@gmail.com
+DNI: 30.277.712
+Dirección/domicilio: Crisologo Larralde 4695, Saavedra, (1430), CABA Argentina 
+
+
+
+Contrato en ingles o en español
+
+Luego musurit te tiene que contratar como autonomo (relacion legal para que te puedan emitir los pagos)
+Esto debe estar listo al 1ro de Septiembre - te lo van a pedir de cara a la primera facturacion
+
+

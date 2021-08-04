@@ -50,7 +50,7 @@ export const INPUT_FIELDS = {
         value: ""
     },
     referencias: {
-        name: "Referencias",
+        name: "referencias",
         type: "radio",
         value: "false",
         titulo: "Mencion pedido de referencias"

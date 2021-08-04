@@ -1,10 +1,14 @@
+import React from 'react'
 import { INPUT_FIELDS } from "../../variables"
 import "./DataField.styles.css"
+import { Description, Grid, Spacer } from '@geist-ui/react'
 
 const DataField = ({ entry }) => {
 
     return (entry 
-        ? Object
+        ? 
+        <Grid.Container gap={1} style={{margin:"1em"}}>
+        {Object
             .entries(entry)
             .filter(element => element[0] !== "_id")
             .map(element => {
@@ -17,12 +21,18 @@ const DataField = ({ entry }) => {
                     return values[1].name
                 })
                 return (
-                    <div key={element[0]}>
-                        <span>{element[2]}: </span>
-                        <span>{element[1]}</span>
-                    </div>
+                    <Grid 
+                    key={element[0]}
+                    style={{width: "30%"}} 
+                    // justify="center" 
+                    // alignItems="center"
+                    xs={20} sm={12} md={8} lg={6}
+                    >
+                    <Description title={element[2]} content={element[1]}/>
+                    </Grid>
                 )
-            })
+            })}
+            </Grid.Container>
         : <p>No hay información disponible</p>)
 }
 

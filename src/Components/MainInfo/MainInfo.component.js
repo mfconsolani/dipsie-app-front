@@ -1,19 +1,22 @@
+import React from 'react'
 import './MainInfo.styles.css'
+import { Card, Grid, Text } from '@geist-ui/react'
 
 const MainInfo = ({id, name, skills}) => {
     return(
-        <div>
+      <Grid>
+      <Card className="mainSkillsContainer" hoverable>
           <div>
-            <span>ID: </span><span>{id}</span>
+            <Text p b>ID: </Text><Text p>{id}</Text>
           </div>
           <div>
-            <span>Name: </span><span>{name}</span>
+          <Text p b>Name: </Text><span>{name}</span>
           </div>
           <div>
-            <span>Main Skills: </span><span>{skills}</span>
+            <Text p b>Main Skills: </Text><span>{skills}</span>
           </div>
-        </div>
-
+        </Card>
+        </Grid>
     )
 }
 

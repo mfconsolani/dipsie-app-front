@@ -1,21 +1,20 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { useFormContext } from './utils/hooks/index';
+import { useFormContext, useFetchCandidate } from './utils/hooks';
 import { DataField, MainInfo, EntryForm, Button, SearchForm, SelectField } from "./Components"
-import moment from 'moment';
-import axios from 'axios'
 import './App.css'
 
-// TO DO
+//TODO
 // Chequear el pasamanos de funciones que estoy haciendo con los handleSubmit
 // Cuando busco nuevos candidatos se vuelve a renderizar todo
+//TODO check error status when no internet connection available
 
 function App() {
 
   const [renderView, setRenderView] = useState({ loadInfo: false, getInfo: false })
   const [userId, setUserId] = useState(null)
-  const [candidateData, setCandidateData] = useState(null)
-  const [entrySelected, setEntrySelected] = useState(null)
+  // const [candidateData, setCandidateData] = useState(null)
+  // const [entrySelected, setEntrySelected] = useState(null)
 
 
   const {
@@ -35,44 +34,20 @@ function App() {
     }
   }, [formState, reset]);
 
-  React.useEffect(() => {
-    if (userId !== null) {
-      axios.get(`http://localhost:8080/interview/${userId}`)
-        .then(res => {
-          console.log({
-            'Response Status': {
-              'status': res.status,
-              'data': res.data
-            }
-          })
-          const candidate = res.data.Candidato[0]
-          candidate.candidateInfo.map(element => {
-            element.postSavingDate = moment(new Date(element.postSavingDate)).format('lll')
-            return null
-          })
-          setCandidateData(candidate)
-          // console.log(candidate.candidateInfo[0])
-          setEntrySelected([candidate.candidateInfo[0]])
-          return
-        }).catch(err => {
-          console.log({
-            'Response Status': {
-              'status': err.response?.request?.status,
-              'data': err.response?.request?.data
-            }
-          })
-          return
-        })
-    }
-    return (setCandidateData(null), setEntrySelected(null))
-  }, [userId])
+  const {
+    error,
+    isLoading,
+    candidateData,
+    entrySelected,
+    setEntrySelected
+  } = useFetchCandidate(userId)
 
 
   function searchCandidate() {
     return setRenderView({ loadInfo: false, getInfo: true })
   }
 
-  function uploadEntry() {
+  function postEntry() {
     return setRenderView({ loadInfo: true, getInfo: false })
   }
 
@@ -81,22 +56,26 @@ function App() {
     return setUserId(event.target.idCandidate.value)
   }
 
-  function selectEntry(event) {
+  function selectEntry(value) {
     const dateSelected = candidateData.candidateInfo.filter(element => {
-      return element.postSavingDate === event.target.value
+      return element.postSavingDate === value
     })
     return setEntrySelected(dateSelected)
   }
-
+  
   return (
     <div className="App">
-      <Button onClick={searchCandidate} name="Buscar Candidato" />
-      <Button onClick={uploadEntry} name="Cargar información" />
+      <header>
+        <Button onClick={searchCandidate} name="Buscar Candidato" />
+        <Button onClick={postEntry} name="Cargar información" />
+      </header>
       {renderView.loadInfo && <EntryForm register={register} onSubmit={handleSubmit(handleOnSubmit)} />}
       {renderView.getInfo &&
         <div>
-          <SearchForm onSubmit={searchId} />
-          {candidateData && <SelectField onChange={selectEntry} candidate={candidateData} />}
+          <SearchForm label="ID Candidato" onSubmit={searchId} />
+          {candidateData && entrySelected ?
+            <SelectField entry={entrySelected} onChange={selectEntry} candidate={candidateData} />
+            : null}
           {entrySelected &&
             <div>
               <MainInfo
