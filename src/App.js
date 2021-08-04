@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useFormContext, useFetchCandidate } from './utils/hooks';
 import { DataField, MainInfo, EntryForm, Button, SearchForm, SelectField } from "./Components"
-import { Row } from '@geist-ui/react'
+import { Row, Page, Grid } from '@geist-ui/react'
 import './App.css'
 
 //TODO
@@ -66,30 +66,37 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <Button onClick={searchCandidate} name="Buscar Candidato" />
-        <Button onClick={postEntry} name="Cargar información" />
-      </header>
-      {renderView.loadInfo && <EntryForm register={register} onSubmit={handleSubmit(handleOnSubmit)} />}
-      {renderView.getInfo &&
-        <div>
-          <Row style={{display: "flex", alignItems: "center", flexWrap: "wrap", gap: "1em"}}>
-          <SearchForm label="ID Candidato" onSubmit={searchId} />
-          {candidateData && entrySelected ?
-            <SelectField entry={entrySelected} onChange={selectEntry} candidate={candidateData} />
-            : null}
-          </Row>
-          {entrySelected &&
-            <div>
-              <MainInfo
-                id={candidateData.candidateId}
-                name={candidateData.candidateName}
-                skills={candidateData.mainSkills} />
-              <DataField entry={entrySelected[0]} />
-            </div>
-          }
-        </div>
-      }
+      <Page size="small">
+      <Page.Header style={{display: "flex", justifyContent: "space-between"}}>
+      <h2>Dipsie</h2>
+      <Grid justify="end" style={{display: "flex", gap: "0.5em", alignItems: "center"}}>
+      <Button onClick={searchCandidate} name="Buscar Candidato" />
+      <Button onClick={postEntry} name="Cargar información" />
+      </Grid>
+      </Page.Header>
+      <Page.Content>
+    {renderView.loadInfo && <EntryForm register={register} onSubmit={handleSubmit(handleOnSubmit)} />}
+    {renderView.getInfo &&
+      <div>
+      <Row style={{display: "flex", alignItems: "center", flexWrap: "wrap", gap: "1em"}}>
+      <SearchForm label="ID Candidato" onSubmit={searchId} />
+    {candidateData && entrySelected?
+      <SelectField entry={entrySelected} onChange={selectEntry} candidate={candidateData} />
+      : null}
+      </Row>
+    {entrySelected &&
+      <div>
+      <MainInfo
+      id={candidateData.candidateId}
+      name={candidateData.candidateName}
+      skills={candidateData.mainSkills} />
+      <DataField entry={entrySelected[0]} />
+      </div>
+    }
+      </div>
+    }
+      </Page.Content>
+    </Page>
     </div>
 
   );
