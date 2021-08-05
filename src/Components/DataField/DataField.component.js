@@ -1,7 +1,7 @@
 import React from 'react'
 import { INPUT_FIELDS } from "../../variables"
 import "./DataField.styles.css"
-import { Description, Grid, Spacer, Card } from '@geist-ui/react'
+import { Description, Grid, Card } from '@geist-ui/react'
 
 const DataField = ({ entry }) => {
 

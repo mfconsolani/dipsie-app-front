@@ -15,7 +15,7 @@ const EntryForm = ({ register, onSubmit }) => {
 
     return (
       <Card shadow hoverable>
-        <form onSubmit={handleOnSubmit} autocomplete="off" >
+        <form onSubmit={handleOnSubmit} autoComplete="off" >
             <Grid.Container className="mainContainer" gap={0.5} justify="center">
             {Object.entries(INPUT_FIELDS).map(entry => {
                 if (entry[1].type === "text") {

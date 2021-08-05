@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import moment from 'moment';
 import axios from 'axios'
+import toast from 'react-hot-toast';
+
 
 
 const useFetchCandidate = (userId) => {
@@ -27,13 +29,20 @@ const useFetchCandidate = (userId) => {
                     })
                     setCandidateData(candidate)
                     setEntrySelected([candidate.candidateInfo[0]])
-                }).catch(err => {
-                    console.log({
-                        'Response Status': {
-                            'status': err.response.status,
-                            'data': err.response.data || err
-                        }
-                    })
+                }).catch(err => {                    
+                    if (err.response.data.Candidato === "Candidato no encontrado"){
+                        toast.error(err.response.data.Candidato, {
+                            position: "bottom-center"
+                        })
+                        setEntrySelected(null)
+                        setCandidateData(null)
+                    } else {
+                        console.log({
+                            'Response Status': {
+                                'status': err.response.status,
+                                'data': err.response.data || err
+                            }})
+                    }
                     setError(true)
                 }).finally(() => setIsLoading(false))
         }

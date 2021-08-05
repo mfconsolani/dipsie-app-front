@@ -2,7 +2,7 @@ import React from 'react'
 import './SearchForm.styles.css';
 import { Button } from '../index';
 import { Search } from '@geist-ui/react-icons'
-import {Input, Spacer, Grid} from '@geist-ui/react'
+import {Input, Grid} from '@geist-ui/react'
 
 const SearchForm = ({ onSubmit, label }) => {
 

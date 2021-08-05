@@ -10,7 +10,7 @@ button {
 }
 
 
-#GeistButton:active{
+#GeistButton:hover{
     border: 1px solid #FF0080;
     background-color: white;
     color: #FF0080;
@@ -24,7 +24,7 @@ button {
 }
 
 
-#GeistButton.reverse:active{
+#GeistButton.reverse:hover{
     border: 1px solid #7928CA;
     background-color: white;
     color: #7928CA;
