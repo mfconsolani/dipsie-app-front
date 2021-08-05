@@ -1,0 +1,69 @@
+/* .labelStyle {
+    background-color: #f3ec78;
+    background-image: linear-gradient(45deg, #7928CA, #FF0080);
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+    font-size: 0.9em;
+} */
+
+.has-float-label input:placeholder-shown:not(:focus) + *,
+.has-float-label select:placeholder-shown:not(:focus) + *,
+.has-float-label textarea:placeholder-shown:not(:focus) + * {
+  font-size: 80%;
+  top: 1em;
+}
+
+.has-float-label > input::placeholder {
+  font-size: 0.6em;
+  color: #ff008066;
+}
+.has-float-label > input::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-size: 0.6em;
+}
+
+.has-float-label > input::-moz-placeholder {
+  /* Firefox 19+ */
+  font-size: 0.6em;
+}
+
+.has-float-label > input:-ms-input-placeholder {
+  /* IE 10+ */
+  font-size: 0.6em;
+}
+
+.has-float-label > input:-moz-placeholder {
+  /* Firefox 18- */
+  font-size: 0.6em;
+}
+
+.has-float-label input,
+.has-float-label select,
+.has-float-label textarea {
+  border-bottom: 2px solid #7928ca66;
+}
+
+.has-float-label input:focus,
+.has-float-label select:focus,
+.has-float-label textarea:focus {
+  border-bottom: 2px solid #ff008066;
+}
+
+.has-float-label > span {
+  color: #808080;
+}
+
+@media (max-width: 400px) {
+  .has-float-label input {
+    max-width: 50vw;
+  }
+  .has-float-label input:placeholder-shown:not(:focus) + *,
+  .has-float-label select:placeholder-shown:not(:focus) + *,
+  .has-float-label textarea:placeholder-shown:not(:focus) + * {
+    font-size: 65%;
+    top: 1.5em;
+  }
+}

@@ -8,7 +8,7 @@ const DataField = ({ entry }) => {
     return (entry 
         ? 
         <Card style={{margin: "1em", width: "auto"}} hoverable>
-        <Grid.Container gap={1}>
+        <Grid.Container gap={1.5}>
         {Object
             .entries(entry)
             .filter(element => element[0] !== "_id")
@@ -27,7 +27,7 @@ const DataField = ({ entry }) => {
                     style={{width: "30%"}} 
                     // justify="center" 
                     // alignItems="center"
-                    xs={20} sm={12} md={8} lg={6}
+                    xs={20} sm={12} md={8} 
                     >
                     <Description title={element[2]} content={element[1]}/>
                     </Grid>

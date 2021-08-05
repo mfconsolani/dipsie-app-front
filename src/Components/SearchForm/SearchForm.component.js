@@ -10,9 +10,9 @@ const SearchForm = ({ onSubmit, label }) => {
         <form className="formSearchForm" onSubmit={onSubmit}>
             <Grid style={{display: "inline-flex", flexWrap: "wrap", gap: "1em"}}> 
                 {/* <Spacer y={.5} /> */}
-                <Input label={label} clearable id="idCandidate" required />
+                <Input label={label} clearable id="idCandidate" style={{color: "#7928CA"}} required />
                 {/* <Spacer y={.5} /> */}
-                <Button icon={<Search/>} type="submit" name="Buscar"/>
+                <Button icon={<Search color="#7928CA"/>} type="submit" name="Buscar"/>
             </Grid>
         </form>
     )

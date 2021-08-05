@@ -66,9 +66,9 @@ function App() {
 
   return (
     <div className="App">
-      <Page size="small">
+      <Page size="large">
       <Page.Header style={{display: "flex", justifyContent: "space-between"}}>
-      <h2>Dipsie</h2>
+      <h2 className="gradient-text">Dipsie</h2>
       <Grid justify="end" style={{display: "flex", gap: "0.5em", alignItems: "center"}}>
       <Button onClick={searchCandidate} name="Buscar Candidato" />
       <Button onClick={postEntry} name="Cargar información" />

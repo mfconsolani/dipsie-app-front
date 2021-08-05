@@ -8,12 +8,14 @@ const Button = (props) => {
         <div>
             {props.type ?
                 <GeistButton {...props} 
+                id="GeistButton"
                 htmlType={props.type} 
                 type="success" 
                 size={props.size ? props.size : "small"}
                 >{props.name}</GeistButton>
                 :
-                <GeistButton 
+                <GeistButton
+                id="GeistButton" 
                 onClick={props.onClick} 
                 type="secondary" 
                 ghost auto>{props.name}</GeistButton>

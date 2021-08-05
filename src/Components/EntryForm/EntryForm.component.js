@@ -2,7 +2,7 @@ import React from 'react'
 import './EntryForm.styles.css'
 import {INPUT_FIELDS} from '../../variables'
 import { TextField, RadioField } from "../index"
-import { Grid, Spacer } from '@geist-ui/react'
+import { Grid, Card } from '@geist-ui/react'
 import { Button } from '../index'
 
 
@@ -14,8 +14,9 @@ const EntryForm = ({ register, onSubmit }) => {
     }
 
     return (
-        <form onSubmit={handleOnSubmit}>
-            <Grid.Container className="mainContainer" gap={0.5}>
+      <Card shadow hoverable>
+        <form onSubmit={handleOnSubmit} autocomplete="off" >
+            <Grid.Container className="mainContainer" gap={0.5} justify="center">
             {Object.entries(INPUT_FIELDS).map(entry => {
                 if (entry[1].type === "text") {
 
@@ -43,11 +44,13 @@ const EntryForm = ({ register, onSubmit }) => {
                 }
             })}
             <Grid xs={20} sm={12} md={8} justify="center" alignItems="center">
-            <Button type="submit" name="Enviar" size="large"/>
+            <Button className="reverse" type="submit" name="Enviar" size="medium"/>
             </Grid>
             </Grid.Container>
 
         </form>
+      </Card>
+
     )
 }
 
