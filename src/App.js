@@ -1,14 +1,11 @@
 import './App.css'
 import React, { useState } from 'react'
+import { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
+import { Row, Page, Loading } from '@geist-ui/react'
 import { useFormContext, useFetchCandidate } from './utils/hooks';
 import { DataField, MainInfo, EntryForm, Header, SearchAndSelect } from "./Components"
-import { Row, Page, Loading } from '@geist-ui/react'
-import { Toaster } from 'react-hot-toast';
 
-//TODO
-// Chequear el pasamanos de funciones que estoy haciendo con los handleSubmit
-// Cuando busco nuevos candidatos se vuelve a renderizar todo
 //TODO check error status when no internet connection available
 
 function App() {
@@ -42,13 +39,9 @@ function App() {
   } = useFetchCandidate(userId)
 
 
-  function searchCandidate() {
-    return setRenderView({ loadInfo: false, getInfo: true })
-  }
+  function searchCandidate() {setRenderView({ loadInfo: false, getInfo: true })}
 
-  function postEntry() {
-    return setRenderView({ loadInfo: true, getInfo: false })
-  }
+  function postEntry() {setRenderView({ loadInfo: true, getInfo: false })}
 
   function searchId(event) {
     event.preventDefault()
@@ -70,7 +63,13 @@ function App() {
           <Header onSearchCandidate={searchCandidate} onPostEntry={postEntry} />
         </Page.Header>
         <Page.Content>
-          {renderView.loadInfo && <EntryForm register={register} onSubmit={handleSubmit(handleOnSubmit)} />}
+          
+          {renderView.loadInfo && 
+          <EntryForm 
+          register={register} 
+          onSubmit={handleSubmit(handleOnSubmit)} 
+          />}
+          
           {renderView.getInfo &&
             <div>
               <SearchAndSelect
