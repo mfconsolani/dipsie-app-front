@@ -1,9 +1,9 @@
+import './App.css'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useFormContext, useFetchCandidate } from './utils/hooks';
-import { DataField, MainInfo, EntryForm, Button, SearchForm, SelectField } from "./Components"
-import { Row, Page, Grid, Loading, Spacer } from '@geist-ui/react'
-import './App.css'
+import { DataField, MainInfo, EntryForm, Header, SearchAndSelect } from "./Components"
+import { Row, Page, Loading } from '@geist-ui/react'
 import { Toaster } from 'react-hot-toast';
 
 //TODO
@@ -15,9 +15,6 @@ function App() {
 
   const [renderView, setRenderView] = useState({ loadInfo: false, getInfo: false })
   const [userId, setUserId] = useState(null)
-  // const [candidateData, setCandidateData] = useState(null)
-  // const [entrySelected, setEntrySelected] = useState(null)
-
 
   const {
     handleOnSubmit
@@ -70,26 +67,23 @@ function App() {
       <div><Toaster /></div>
       <Page size="large">
         <Page.Header style={{ display: "flex", justifyContent: "space-between" }}>
-          <h2 className="gradient-text">Dipsie</h2>
-          <Grid justify="end" style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
-            <Button onClick={searchCandidate} name="Buscar Candidato" />
-            <Button onClick={postEntry} name="Cargar información" />
-          </Grid>
+          <Header onSearchCandidate={searchCandidate} onPostEntry={postEntry} />
         </Page.Header>
         <Page.Content>
           {renderView.loadInfo && <EntryForm register={register} onSubmit={handleSubmit(handleOnSubmit)} />}
           {renderView.getInfo &&
             <div>
-              <Row style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "1em" }}>
-                <SearchForm label="ID Candidato" onSubmit={searchId} />
-                {candidateData && entrySelected ?
-                  <SelectField entry={entrySelected} onChange={selectEntry} candidate={candidateData} />
-                  : null}
-              </Row>
+              <SearchAndSelect
+                onSubmit={searchId}
+                label="ID Candidato"
+                entry={entrySelected}
+                onChange={selectEntry}
+                candidate={candidateData} />
+
               {isLoading &&
-                  <Row style={{ padding: '10px 0', marginTop: "1em" }}>
-                    <Loading>Cargando</Loading>
-                  </Row>
+                <Row style={{ padding: '10px 0', marginTop: "1em" }}>
+                  <Loading>Cargando</Loading>
+                </Row>
               }
 
               {entrySelected &&

@@ -6,6 +6,8 @@ export {default as EntryForm} from './EntryForm/EntryForm.component';
 export {default as Button} from './Button/Button.component';
 export {default as SearchForm} from './SearchForm/SearchForm.component';
 export {default as SelectField} from './SelectField/SelectField.component';
+export {default as Header} from './Header/Header.component'
+export {default as SearchAndSelect} from './SearchAndSelect/SearchAndSelect.component';
 
 
 
