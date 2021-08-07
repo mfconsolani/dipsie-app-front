@@ -1,0 +1,6 @@
+#mainSkillsCard>div{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 1em 0.5em 0.5em 0.5em;
+}

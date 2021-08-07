@@ -1,6 +1,7 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { INPUT_FIELDS } from '../../variables'
+import toast from 'react-hot-toast';
 
 /** * 
  * @typedef {Object} FormContext
@@ -14,55 +15,71 @@ import { INPUT_FIELDS } from '../../variables'
  * @returns {FormContext} 
  */
 const useFormContext = () => {
-    const [formData, setFormData] = useState({...INPUT_FIELDS})
+  const [formData, setFormData] = useState({ ...INPUT_FIELDS })
 
-    const handleInputChange = (event) => {
-        const { value, ...rest } = formData[event.target.id]
-        setFormData({
+  const handleInputChange = (event) => {
+    const { value, ...rest } = formData[event.target.id]
+    setFormData({
       ...formData,
       [event.target.id]: {
-          ...rest,
-          value: event.target.value
-        }
-        })
-    }
-    const handleRadioChange = (event) => {
-        const { value, ...rest } = formData[event.target.name]
-        console.log(value, rest)
-        setFormData({
-            ...formData,
-            [event.target.name]: {
-                ...rest,
-                value: event.target.value
-            }
-        })
-    }
-
-    const handleOnSubmit = (data) => {
-        const { candidate, id, availableNow, mainSkills, ...rest} = data
-    
-        axios.post('http://localhost:8080/interview/', {
-          candidate,
-          id,
-          info: {...rest},
-          availableNow,
-          mainSkills
-        })
-        .then(res => {
-          console.log({'Response Status': {
-            'status': res.status,
-            'data': res.data}
-          })
-        })
-        .catch(err => console.log({'Response Status': {
-          'status': err.status,
-          'data': err.data}
-        }))
-        return  
-        
+        ...rest,
+        value: event.target.value
       }
-    
-    return {handleInputChange, handleRadioChange, handleOnSubmit, formData}
+    })
+  }
+  const handleRadioChange = (event) => {
+    const { value, ...rest } = formData[event.target.name]
+    console.log(value, rest)
+    setFormData({
+      ...formData,
+      [event.target.name]: {
+        ...rest,
+        value: event.target.value
+      }
+    })
+  }
+
+  const handleOnSubmit = (data) => {
+    const { candidate, id, availableNow, mainSkills, ...rest } = data
+
+    axios.post('http://localhost:8080/interview/', {
+      candidate,
+      id,
+      info: { ...rest },
+      availableNow,
+      mainSkills
+    })
+      .then(res => {
+        console.log({
+          'Response Status': {
+            'status': res.status,
+            'data': res.data
+          }
+        })
+        toast.success('Información guardada exitosamente', {
+          position: "bottom-center"
+        })
+
+      })
+      .catch(err => {
+        console.log({
+          'Response Status': {
+            'status': err.status,
+            'data': err.data
+          }
+        })
+        toast.error(`Error al enviar el formulario:${err.data} `, {
+          position: "bottom-center"
+        })
+
+      }
+
+      )
+    return
+
+  }
+
+  return { handleInputChange, handleRadioChange, handleOnSubmit, formData }
 }
 
 export default useFormContext

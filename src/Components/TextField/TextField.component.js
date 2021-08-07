@@ -1,21 +1,21 @@
+import React from 'react'
 import './TextField.component.css'
 
-const TextField = ({ id, name, value, register }) => {
-    // console.log(id)
-    return (
-      <div className="input-parent-div">
-        <div>
-          <label>{name}</label>
-        </div>
-        <input {...register(id, {
-          id: id,
-          type: "text",
-          value: value,
-          required: { value: true, message: "Campo requerido" }
-        })} />
-      </div>
-    )
-  }
+
+
+const TextField = ({ id, name, register }) => {
+  return (
+        <label className="has-float-label">
+          <input
+            {...register(id, {
+              required: true
+            })}
+            placeholder={name}
+          />
+          <span>{name.toUpperCase()}</span>
+        </label>
+  )
+}
 
 
 export default TextField

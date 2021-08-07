@@ -1,15 +1,19 @@
+import React from 'react'
 import './SearchForm.styles.css';
 import { Button } from '../index';
+import { Search } from '@geist-ui/react-icons'
+import {Input, Grid} from '@geist-ui/react'
 
-const SearchForm = ({ onSubmit }) => {
+const SearchForm = ({ onSubmit, label }) => {
 
     return (
-        <form onSubmit={onSubmit}>
-            <div>
-                <label>ID Candidato</label>
-                <input type="text" id="idCandidate" required />
-                <Button type="submit" name="Buscar" />
-            </div>
+        <form className="formSearchForm" onSubmit={onSubmit}>
+            <Grid style={{display: "inline-flex", flexWrap: "wrap", gap: "1em"}}> 
+                {/* <Spacer y={.5} /> */}
+                <Input label={label} clearable id="idCandidate" style={{color: "#7928CA"}} required />
+                {/* <Spacer y={.5} /> */}
+                <Button icon={<Search color="#7928CA"/>} type="submit" name="Buscar"/>
+            </Grid>
         </form>
     )
 }

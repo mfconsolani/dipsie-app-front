@@ -1,16 +1,21 @@
+import React from 'react'
 import './SelectField.styles.css'
+import { Select, Grid } from '@geist-ui/react'
 
-const SelectField = ({ onChange, candidate }) => {
+const SelectField = ({ onChange, candidate, entry}) => {
 
     return (
-        <select onChange={onChange}>
-            {candidate.candidateInfo.map((element) => {
+        <Grid id="selectFieldGrid">
+        <Select onChange={onChange} placeholder={entry[0].postSavingDate} >
+        {candidate.candidateInfo.map((element) => {
                 return (
-                <option key={element._id} value={element.postSavingDate}>
+                <Select.Option key={element._id} value={element.postSavingDate}>
                     {element.postSavingDate}
-                </option>)}
-                )}
-        </select>
+                </Select.Option>)}
+                )
+        }
+        </Select>
+        </Grid>
     )
 }
 

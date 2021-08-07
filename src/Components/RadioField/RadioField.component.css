@@ -1,0 +1,14 @@
+.radioStyle {
+  font-size: 80%;
+  color: #808080
+}
+
+.radio-label-style {
+    font-size: 90%;
+    color: #7928cacc
+  }
+  
+.input-container{
+    display: flex;
+    justify-content: space-around;
+}

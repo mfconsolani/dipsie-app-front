@@ -1,3 +1,31 @@
 button {
     display: block
 }
+
+#GeistButton{
+    border: 1px solid #7928CA;
+    background-color: white;
+    color: #7928CA;
+    transition: 0.1;
+}
+
+
+#GeistButton:hover{
+    border: 1px solid #FF0080;
+    background-color: white;
+    color: #FF0080;
+}
+
+#GeistButton.reverse{
+    border: 1px solid  #FF0080;
+    background-color: white;
+    color: #FF0080;;
+    transition: 0.1;
+}
+
+
+#GeistButton.reverse:hover{
+    border: 1px solid #7928CA;
+    background-color: white;
+    color: #7928CA;
+}

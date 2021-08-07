@@ -1,15 +1,26 @@
+import React from 'react'
 import './Button.styles.css'
+import { Button as GeistButton } from '@geist-ui/react'
 
-const Button = ({ onClick, name, type }) => {
+const Button = (props) => {
 
     return (
-        <>
-            {type ?
-                <button type={type}>{name}</button>
+        <div>
+            {props.type ?
+                <GeistButton {...props} 
+                id="GeistButton"
+                htmlType={props.type} 
+                type="success" 
+                size={props.size ? props.size : "small"}
+                >{props.name}</GeistButton>
                 :
-                <button onClick={onClick}>{name}</button>
+                <GeistButton
+                id="GeistButton" 
+                onClick={props.onClick} 
+                type="secondary" 
+                ghost auto>{props.name}</GeistButton>
             }
-        </>
+        </div>
     )
 }
 

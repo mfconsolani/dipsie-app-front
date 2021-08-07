@@ -1,10 +1,12 @@
+import React from 'react'
 import './RadioField.component.css'
 
 const RadioField = ({ titulo, type, name, register }) => {
 
   return (
     <div>
-      <p>{titulo}</p>
+      <p className="radioStyle">{titulo.toUpperCase()}</p>
+      <div className="input-container">
       <div>
         <input
           type={type}
@@ -12,7 +14,7 @@ const RadioField = ({ titulo, type, name, register }) => {
           value = "true"        
           {...register(name)}
         />
-        <label htmlFor={name + "Si"}>Si</label>
+        <label className="radio-label-style" htmlFor={name + "Si"}> Si</label>
       </div>
 
       <div>
@@ -23,7 +25,8 @@ const RadioField = ({ titulo, type, name, register }) => {
           {...register(name)}
           defaultChecked
            />
-        <label htmlFor={name + "No"}>No</label>
+        <label className="radio-label-style" htmlFor={name + "No"}> No</label>
+      </div>
       </div>
     </div>
   )
