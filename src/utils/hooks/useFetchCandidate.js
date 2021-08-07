@@ -3,6 +3,8 @@ import moment from 'moment';
 import axios from 'axios'
 import toast from 'react-hot-toast';
 
+//TODO
+// ver con nacho lo que hice en la linea 19: setear la entry a false pq no se me actualizaba el initialvalue del selectField
 
 
 const useFetchCandidate = (userId) => {
@@ -14,6 +16,7 @@ const useFetchCandidate = (userId) => {
     useEffect(() => {
         if (userId !== null) {
             setIsLoading(true)
+            setEntrySelected(null)
             axios.get(`http://localhost:8080/interview/${userId}`)
                 .then(res => {
                     console.log({
@@ -34,7 +37,6 @@ const useFetchCandidate = (userId) => {
                         toast.error(err.response.data.Candidato, {
                             position: "bottom-center"
                         })
-                        setEntrySelected(null)
                         setCandidateData(null)
                     } else {
                         console.log({

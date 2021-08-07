@@ -6,10 +6,12 @@ const SelectField = ({ onChange, candidate, entry}) => {
 
     return (
         <Grid id="selectFieldGrid">
-        <Select onChange={onChange} placeholder={entry[0].postSavingDate} >
+        <Select onChange={onChange} initialValue={entry[0].postSavingDate} >
         {candidate.candidateInfo.map((element) => {
                 return (
-                <Select.Option key={element._id} value={element.postSavingDate}>
+                <Select.Option 
+                key={element._id} 
+                value={element.postSavingDate}>
                     {element.postSavingDate}
                 </Select.Option>)}
                 )
