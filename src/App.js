@@ -2,11 +2,15 @@ import './App.css'
 import React, { useState } from 'react'
 import { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
-import { Row, Page, Loading } from '@geist-ui/react'
+import { Row, Page, Loading} from '@geist-ui/react'
 import { useFormContext, useFetchCandidate } from './utils/hooks';
-import { DataField, MainInfo, EntryForm, Header, SearchAndSelect } from "./Components"
-
+import { DataField, MainInfo, EntryForm, Header, SearchAndSelect, ProfileCard } from "./Components"
+import { Route, Switch } from 'react-router-dom';
 //TODO check error status when no internet connection available
+
+// import { useAuth0 } from "@auth0/auth0-react";
+
+
 
 function App() {
 
@@ -24,6 +28,7 @@ function App() {
     formState
   } = useForm();
 
+
   React.useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
@@ -39,9 +44,9 @@ function App() {
   } = useFetchCandidate(userId)
 
 
-  function searchCandidate() {setRenderView({ loadInfo: false, getInfo: true })}
+  function searchCandidate() { setRenderView({ loadInfo: false, getInfo: true }) }
 
-  function postEntry() {setRenderView({ loadInfo: true, getInfo: false })}
+  function postEntry() { setRenderView({ loadInfo: true, getInfo: false }) }
 
   function searchId(event) {
     event.preventDefault()
@@ -63,13 +68,17 @@ function App() {
           <Header onSearchCandidate={searchCandidate} onPostEntry={postEntry} />
         </Page.Header>
         <Page.Content>
-          
-          {renderView.loadInfo && 
-          <EntryForm 
-          register={register} 
-          onSubmit={handleSubmit(handleOnSubmit)} 
-          />}
-          
+        <Switch>
+          <Route path="/profile" component={ProfileCard} />
+        </Switch>
+
+
+          {renderView.loadInfo &&
+            <EntryForm
+              register={register}
+              onSubmit={handleSubmit(handleOnSubmit)}
+            />}
+
           {renderView.getInfo &&
             <div>
               <SearchAndSelect

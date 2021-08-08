@@ -4,13 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GeistProvider, CssBaseline } from '@geist-ui/react'
+import { BrowserRouter as Router } from "react-router-dom";
+import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
 
 ReactDOM.render(
   <React.StrictMode>
-    <GeistProvider>
-      <CssBaseline />
-      <App />
-    </GeistProvider>
+    <Router>
+      <Auth0ProviderWithHistory>
+        <GeistProvider>
+          <CssBaseline />
+          <App />
+        </GeistProvider>
+      </Auth0ProviderWithHistory>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

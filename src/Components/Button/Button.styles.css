@@ -2,7 +2,7 @@ button {
     display: block
 }
 
-#GeistButton{
+#classic{
     border: 1px solid #7928CA;
     background-color: white;
     color: #7928CA;
@@ -10,13 +10,13 @@ button {
 }
 
 
-#GeistButton:hover{
+#classic:hover{
     border: 1px solid #FF0080;
     background-color: white;
     color: #FF0080;
 }
 
-#GeistButton.reverse{
+#reverse{
     border: 1px solid  #FF0080;
     background-color: white;
     color: #FF0080;;
@@ -24,8 +24,47 @@ button {
 }
 
 
-#GeistButton.reverse:hover{
+#reverse:hover{
     border: 1px solid #7928CA;
     background-color: white;
     color: #7928CA;
 }
+
+#allReversed{
+    border: 1px solid white;
+    background-color: #FF0080;
+    color: white;
+}
+
+#allReversed:hover{
+    border: 1px solid  #FF0080;
+    background-color: white;
+    color: #FF0080;;
+    transition: 0.1;
+}
+
+#reverseClassic:hover{
+    border: 1px solid white;
+    background-color: #7928CA;
+    color: white;
+}
+
+#reverseClassic{
+    border: 1px solid  #7928CA;
+    background-color: white;
+    color: #7928CA;
+    transition: 0.1;
+}
+
+/* button[type="secondary"]:disabled{
+    border: 1px solid #8A8A8A;
+    background-color: white;
+    color: #8A8A8A;
+} */
+
+/* #classic:hover{
+    border: 1px solid  #7928CA;
+    background-color: white;
+    color: #7928CA;
+    transition: 0.1;
+} */
