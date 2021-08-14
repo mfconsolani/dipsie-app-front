@@ -22,7 +22,7 @@ const DataField = ({ entry }) => {
                     return values[1].name
                 })
                 return (
-                    <Grid 
+                    <Grid
                     key={element[0]}
                     style={{width: "30%"}} 
                     // justify="center" 

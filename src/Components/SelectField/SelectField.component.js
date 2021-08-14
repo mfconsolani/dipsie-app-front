@@ -3,10 +3,9 @@ import './SelectField.styles.css'
 import { Select, Grid } from '@geist-ui/react'
 
 const SelectField = ({ onChange, candidate, entry }) => {
-    // console.log(entry)
     return (
         <Grid id="selectFieldGrid">
-            <Select onChange={onChange} initialValue={entry} >
+            <Select onChange={onChange} initialValue={entry[0].postSavingDate} >
                 {candidate.candidateInfo.map((element) => {
                     return (
                         <Select.Option

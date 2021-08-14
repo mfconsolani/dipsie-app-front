@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import moment from 'moment';
 import axios from 'axios'
 import toast from 'react-hot-toast';
+import { useAuth0 } from "@auth0/auth0-react";
 
 //TODO
-// ver con nacho lo que hice en la linea 19: setear la entry a false pq no se me actualizaba el 
-//initialvalue del selectField
+// Once the server is ready to receive Secure API calls, it will be necessary to silenghtly ask
+// for a token and then set the authorization header with the bearer credential with the token to 
+// send it for the get request and also for the post request
+// for that, check documentation here: https://auth0.com/blog/complete-guide-to-react-user-authentication/#Calling-an-API
 
 
 const useFetchCandidate = (userId) => {
@@ -13,43 +16,58 @@ const useFetchCandidate = (userId) => {
     const [entrySelected, setEntrySelected] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
+    const serverUrl = process.env.REACT_APP_SERVER_URL
+    const { getAccessTokenSilently } = useAuth0();
 
-    useEffect(() => {
+    useEffect(async () => {
+
         if (userId !== null) {
-            setIsLoading(true)
-            setEntrySelected(null)
-            axios.get(`http://localhost:8080/interview/${userId}`)
-                .then(res => {
+            try {
+                const token = await getAccessTokenSilently();
+                setIsLoading(true)
+                setEntrySelected(null)
+                const axiosResponse = await axios.get(`${serverUrl}/interview/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                })
+
+                console.log({
+                    'Response Status': {
+                        'status': axiosResponse.status,
+                        'data': axiosResponse.data
+                    }
+                })
+
+                const candidate = await axiosResponse.data.Candidato[0]
+                await candidate.candidateInfo.map(element => {
+                    element.postSavingDate = moment(new Date(element.postSavingDate)).format('lll')
+                    return null
+                })
+                setCandidateData(candidate)
+                setEntrySelected([candidate.candidateInfo[0]])
+            } catch (err) {
+                if ((err.response && err.response.data.Candidato === "Candidato no encontrado")) {
+                    toast.error(err.response.data.Candidato, {
+                        position: "bottom-center"
+                    })
+                    setCandidateData(null)
+                } else {
                     console.log({
                         'Response Status': {
-                            'status': res.status,
-                            'data': res.data
+                            'status': (err.response && err.response.message) || err,
+                            'data': (err.response && err.response.data) || err.message
                         }
                     })
-                    const candidate = res.data.Candidato[0]
-                    candidate.candidateInfo.map(element => {
-                        element.postSavingDate = moment(new Date(element.postSavingDate)).format('lll')
-                        return null
+                    toast.error(err.message, {
+                        position: "bottom-center"
                     })
-                    setCandidateData(candidate)
-                    setEntrySelected([candidate.candidateInfo[0]])
-                }).catch(err => {                    
-                    if (err.response.data.Candidato === "Candidato no encontrado"){
-                        toast.error(err.response.data.Candidato, {
-                            position: "bottom-center"
-                        })
-                        setCandidateData(null)
-                    } else {
-                        console.log({
-                            'Response Status': {
-                                'status': err.response.status,
-                                'data': err.response.data || err
-                            }})
-                    }
-                    setError(true)
-                }).finally(() => setIsLoading(false))
-        }
-        else {
+                }
+                setError(true)
+            } finally {
+                setIsLoading(false)
+            }
+        } else {
             setCandidateData(null)
             setEntrySelected(null)
         }

@@ -8,7 +8,7 @@ const LogoutButton = () => {
     <React.Fragment>
     <Button
       name="Log Out"
-      id="reverseClassic"
+      className="reverse-classic"
       onClick={() =>
         logout({
           returnTo: window.location.origin,

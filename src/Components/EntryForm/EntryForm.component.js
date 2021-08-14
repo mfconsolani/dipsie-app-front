@@ -44,7 +44,7 @@ const EntryForm = ({ register, onSubmit }) => {
                 }
             })}
             <Grid xs={20} sm={12} md={8} justify="center" alignItems="center">
-            <Button className="reverse" type="submit" name="Enviar" size="medium"/>
+            <Button className="all-reverse" type="submit" name="Enviar" size="medium"/>
             </Grid>
             </Grid.Container>
 

@@ -1,12 +1,9 @@
 .classic{
-    font-size: 0.85em;
-    padding:0.35em 1.2em;
     border: 1px solid #7928CA;
     background-color: white;
     color: #7928CA;
-    border-radius: 5px;
+    border-radius: 3px;
     transition: all 0.3s ease-in-out;
-    box-sizing: border-box;
 }
 
 
@@ -19,14 +16,11 @@
 }
 
 .reverse{
-    font-size: 0.85em;
-    padding:0.35em 1.2em;
     border: 1px solid  #FF0080;
     background-color: white;
     color: #FF0080;
-    border-radius: 5px;
+    border-radius: 3px;
     transition: all 0.3s ease-in-out;
-    box-sizing: border-box;
 }
 
 
@@ -38,18 +32,15 @@
     cursor: pointer;
 }
 
-.all-reverse{
-    font-size: 0.85em;
-    padding:0.35em 1.2em;
+.all-reversed{
     border: 1px solid white;
     background-color: #FF0080;
     color: white;
-    border-radius: 5px;
+    border-radius: 3px;
     transition: all 0.3s ease-in-out;
-    box-sizing: border-box;
 }
 
-.all-reverse:hover{
+.all-reversed:hover{
     border: 1px solid  #FF0080;
     background-color: white;
     color: #FF0080;
@@ -58,14 +49,11 @@
 }
 
 .reverse-classic{
-    font-size: 0.85em;
-    padding:0.35em 1.2em;
     border: 1px solid  #7928CA;
     background-color: white;
     color: #7928CA;
-    border-radius: 5px;
+    border-radius: 3px;
     transition: all 0.3s ease-in-out;
-    box-sizing: border-box;
 }
 
 .reverse-classic:hover{
@@ -75,10 +63,3 @@
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
-
-@media (max-width: 697px) {
-    .reverse, .reverse-classic, .classic {
-        font-size: 0.7em;
-        padding:0.2em 0.8em;
-    }
-  }

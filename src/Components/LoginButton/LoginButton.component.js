@@ -9,7 +9,7 @@ const LoginButton = () => {
     <React.Fragment>
     <Button
       name="Log In"
-      id="allReversed"
+      className="all-reverse"
       onClick={() => loginWithRedirect()}
     />
     </React.Fragment>
