@@ -82,3 +82,15 @@
         padding:0.2em 0.8em;
     }
   }
+
+.reverse:disabled, 
+.reverse-classic:disabled, 
+.classic:disabled, 
+.all-reverse:disabled {
+    border: 1px solid  #808080;
+    background-color: white;
+    color: #808080;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
+}

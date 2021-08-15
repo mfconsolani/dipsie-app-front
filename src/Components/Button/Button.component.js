@@ -6,20 +6,18 @@ const Button = (props) => {
         <div>
             {props.type ?
                 <button {...props}
+                    disabled={props.disabled}
                     type={props.type}
                     id={props.id ? props.id : ""}
                     className={props.className ? props.className : ""}
-                    // size={props.size ? props.size : "small"}
                 >{props.name}</button>
                 :
                 <button
-                    // {...(!isAuthenticated && {disabled: true} )}
+                    disabled={props.disabled}
                     onClick={props.onClick}
                     id={props.id ? props.id : ""}
-                    // ghost auto
                     className={props.className ? props.className : ""}
-                    >{props.name}</button>
-                    
+                    >{props.name}</button>                    
             }
         </div>
     )

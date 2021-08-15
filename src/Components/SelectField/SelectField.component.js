@@ -1,6 +1,6 @@
 import React from 'react'
 import './SelectField.styles.css'
-import { Select, Grid } from '@geist-ui/react'
+import { Select, Grid} from '@geist-ui/react'
 
 const SelectField = ({ onChange, candidate, entry }) => {
     return (
