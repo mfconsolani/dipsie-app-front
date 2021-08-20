@@ -8,8 +8,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = ({ onSearchCandidate, onPostEntry }) => {
     const { isLoading, user, loginWithRedirect, logout, isAuthenticated } = useAuth0();
-    const userRole = (user && user["https://dipsie-api.com/roles"])
-        ? user["https://dipsie-api.com/roles"]
+    const userRole = (user && user[`${process.env.REACT_APP_AUTH0_AUDIENCE}/roles`])
+        ? user[`${process.env.REACT_APP_AUTH0_AUDIENCE}/roles`]
         : []
     const isXS = useMediaQuery('xs')
     const handleLogOut = () =>

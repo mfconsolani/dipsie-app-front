@@ -18,7 +18,7 @@ const useFetchCandidate = (userId) => {
     const [error, setError] = useState(null)
     const serverUrl = process.env.REACT_APP_SERVER_URL
     const { getAccessTokenSilently } = useAuth0();
-
+    
     useEffect(async () => {
 
         if (userId !== null) {
