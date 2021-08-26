@@ -39,8 +39,11 @@ const useFetchCandidate = (userId) => {
                     }
                 })
 
-                const candidate = await axiosResponse.data.Candidato[0]
+                const candidate = await axiosResponse.data.Candidato[0].candidates
+                console.log(candidate)
+                // console.log(candidate.candidateInfo)
                 await candidate.candidateInfo.map(element => {
+                    // console.log(element)
                     element.postSavingDate = moment(new Date(element.postSavingDate)).format('lll')
                     return null
                 })
