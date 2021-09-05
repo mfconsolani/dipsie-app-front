@@ -18,7 +18,7 @@ const useFetchCandidate = (userId) => {
     const [error, setError] = useState(null)
     const serverUrl = process.env.REACT_APP_SERVER_URL
     const { getAccessTokenSilently } = useAuth0();
-    
+
     useEffect(async () => {
 
         if (userId !== null) {
@@ -26,11 +26,12 @@ const useFetchCandidate = (userId) => {
                 const token = await getAccessTokenSilently();
                 setIsLoading(true)
                 setEntrySelected(null)
-                const axiosResponse = await axios.get(`${serverUrl}/interview/${userId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    }
-                })
+                const axiosResponse = await axios
+                    .get(`${serverUrl}/interview/${userId}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    })
 
                 console.log({
                     'Response Status': {
@@ -40,10 +41,7 @@ const useFetchCandidate = (userId) => {
                 })
 
                 const candidate = await axiosResponse.data.Candidato[0].candidates
-                console.log(candidate)
-                // console.log(candidate.candidateInfo)
                 await candidate.candidateInfo.map(element => {
-                    // console.log(element)
                     element.postSavingDate = moment(new Date(element.postSavingDate)).format('lll')
                     return null
                 })
