@@ -13,6 +13,7 @@ export {default as LogoutButton} from './LogoutButton/LogoutButton.component';
 export {default as SignupButton} from './SigunupButton/SignupButton.component';
 export {default as AuthenticationButton} from './AuthenticationButton/AuthenticationButton.component';
 export {default as ProfileCard} from './ProfileCard/ProfileCard.component'
+export {default as UnauthNote} from './Notes/UnauthorizedNote.component'
 
 
 

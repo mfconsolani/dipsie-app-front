@@ -4,11 +4,11 @@ import { Toaster } from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { Row, Page, Loading} from '@geist-ui/react'
 import { useFormContext, useFetchCandidate } from './utils/hooks';
-import { DataField, MainInfo, EntryForm, Header, SearchAndSelect, ProfileCard } from "./Components"
+import { DataField, MainInfo, EntryForm, Header, SearchAndSelect, ProfileCard, UnauthNote } from "./Components"
 import { Route, Switch } from 'react-router-dom';
+// import { useAuth0 } from "@auth0/auth0-react";
 //TODO check error status when no internet connection available
 
-// import { useAuth0 } from "@auth0/auth0-react";
 
 
 
@@ -78,6 +78,8 @@ function App() {
               register={register}
               onSubmit={handleSubmit(handleOnSubmit)}
             />}
+
+          <UnauthNote/>            
 
           {renderView.getInfo &&
             <div>
