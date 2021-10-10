@@ -4,6 +4,7 @@ import { Grid, User, useMediaQuery, ButtonDropdown, Spacer} from '@geist-ui/reac
 import { Button } from '../index';
 import AuthenticationButton from '../AuthenticationButton/AuthenticationButton.component';
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from 'react-router-dom';
 
 
 const Header = ({ onSearchCandidate, onPostEntry }) => {
@@ -23,10 +24,12 @@ const Header = ({ onSearchCandidate, onPostEntry }) => {
         <React.Fragment>
             {!isLoading &&
                 <React.Fragment>
+                    <Link to="/">
                     {!isXS
                         ? <h2 className="gradient-text">Dipsie</h2>
                         : <h3 className="gradient-text">Dipsie</h3>
                     }
+                    </Link>
                     <Grid 
                     justify="end" 
                     style={{ display: "flex", gap: "0.5em", alignItems: "center" }}>
@@ -69,7 +72,10 @@ const Header = ({ onSearchCandidate, onPostEntry }) => {
                                 />
                             </React.Fragment>
                         }
-                        {user && <User src={user.picture} name={!isXS ? user.nickname : ""} />}
+                        <Link to='/profile'>
+                        {user && 
+                        <User src={user.picture} name={!isXS ? user.nickname : ""} />}
+                        </Link>
                     </Grid>
                 </React.Fragment>
 

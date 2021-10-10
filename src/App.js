@@ -6,16 +6,15 @@ import { Row, Page, Loading} from '@geist-ui/react'
 import { useFormContext, useFetchCandidate } from './utils/hooks';
 import { DataField, MainInfo, EntryForm, Header, SearchAndSelect, ProfileCard, UnauthNote } from "./Components"
 import { Route, Switch } from 'react-router-dom';
-// import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 //TODO check error status when no internet connection available
-
-
 
 
 function App() {
 
   const [renderView, setRenderView] = useState({ loadInfo: false, getInfo: false })
   const [userId, setUserId] = useState(null)
+  const { isAuthenticated } = useAuth0()
 
   const {
     handleOnSubmit
@@ -79,7 +78,7 @@ function App() {
               onSubmit={handleSubmit(handleOnSubmit)}
             />}
 
-          <UnauthNote/>            
+          { isAuthenticated && <UnauthNote/> }
 
           {renderView.getInfo &&
             <div>
