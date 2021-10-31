@@ -1,3 +1,7 @@
+#Demo
+<img src="./ezgif.com-gif-maker (1).gif" width="600" height="auto"/>
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
